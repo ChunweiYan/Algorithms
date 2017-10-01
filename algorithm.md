@@ -2,27 +2,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org67e10b5">1. binary operations</a>
+<li><a href="#orgef7682f">1. binary operations</a>
 <ul>
-<li><a href="#org0397809">1.1. set some bit</a></li>
-<li><a href="#org3e70d09">1.2. reset some bit</a></li>
-<li><a href="#orgc1547c5">1.3. check some bit</a></li>
-<li><a href="#org7289001">1.4. bitset</a>
+<li><a href="#org9e85eee">1.1. set some bit</a></li>
+<li><a href="#org6a7edd6">1.2. reset some bit</a></li>
+<li><a href="#org82fba3f">1.3. check some bit</a></li>
+<li><a href="#orgff75e79">1.4. bitset</a>
 <ul>
-<li><a href="#org5c4258a">1.4.1. operators</a></li>
+<li><a href="#orgbead908">1.4.1. operators</a></li>
 </ul>
 </li>
-<li><a href="#orgf74f69f">1.5. storeage of negative numbers</a></li>
-<li><a href="#org6d2c7cf">1.6. classicial problems</a>
+<li><a href="#orgfb2c49f">1.5. storeage of negative numbers</a></li>
+<li><a href="#org734165e">1.6. classicial problems</a>
 <ul>
-<li><a href="#org007e927">1.6.1. XOR</a></li>
-<li><a href="#org19b5f97">1.6.2. bits as tiny hashmap (which has less than 32 or 64 entries)</a></li>
+<li><a href="#orge56ea11">1.6.1. XOR</a></li>
+<li><a href="#org0899b45">1.6.2. bits as tiny hashmap (which has less than 32 or 64 entries)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org3ebafa5">2. trees</a></li>
-<li><a href="#org3345ec8">3. Dynamic Programming</a></li>
+<li><a href="#org29cee52">2. trees</a></li>
+<li><a href="#orgd567ca0">3. Dynamic Programming</a></li>
 </ul>
 </div>
 </div>
@@ -31,7 +31,7 @@ including some thoughts about classic problems,
 and some terminologies that might be necessary for an interview.
 
 
-<a id="org67e10b5"></a>
+<a id="orgef7682f"></a>
 
 # binary operations
 
@@ -70,16 +70,16 @@ The basic binary operations are as follows
 
 
 <tr>
-<td class="org-left">`\vert`</td>
+<td class="org-left">&vert;</td>
 <td class="org-left">bitwise or</td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
 
 <tr>
-<td class="org-left">`\~`</td>
+<td class="org-left">`~`</td>
 <td class="org-left">bitwise complement</td>
-<td class="org-left">`unsigned int max=\~0`</td>
+<td class="org-left">`unsigned int max=~0`</td>
 </tr>
 
 
@@ -92,35 +92,35 @@ The basic binary operations are as follows
 </table>
 
 
-<a id="org0397809"></a>
+<a id="org9e85eee"></a>
 
 ## set some bit
 
     x |= 1 << n;
 
 
-<a id="org3e70d09"></a>
+<a id="org6a7edd6"></a>
 
 ## reset some bit
 
     x &= (~0 ^ (1<<n))
 
 
-<a id="orgc1547c5"></a>
+<a id="org82fba3f"></a>
 
 ## check some bit
 
     x & (1<<n)
 
 
-<a id="org7289001"></a>
+<a id="orgff75e79"></a>
 
 ## bitset
 
 Bitset is a c++ container for bits.
 
 
-<a id="org5c4258a"></a>
+<a id="orgbead908"></a>
 
 ### operators
 
@@ -212,7 +212,7 @@ Bitset is a c++ container for bits.
 
 
 <tr>
-<td class="org-left">`\vert`</td>
+<td class="org-left">&vert;</td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
@@ -247,7 +247,7 @@ Bitset is a c++ container for bits.
     cout << "~ " << bits.flip().to_string() << endl;
 
 
-<a id="orgf74f69f"></a>
+<a id="orgfb2c49f"></a>
 
 ## storeage of negative numbers
 
@@ -257,12 +257,12 @@ is representated as the two's complement of its absolute value.
 In other words, the binary representation of -K as a N-bit number is concat(1, 2<sup>(N-1)</sup>-K).
 
 
-<a id="org6d2c7cf"></a>
+<a id="org734165e"></a>
 
 ## classicial problems
 
 
-<a id="org007e927"></a>
+<a id="orge56ea11"></a>
 
 ### XOR
 
@@ -271,7 +271,7 @@ In other words, the binary representation of -K as a N-bit number is concat(1, 2
 -   Single Number III
 
 
-<a id="org19b5f97"></a>
+<a id="org0899b45"></a>
 
 ### bits as tiny hashmap (which has less than 32 or 64 entries)
 
@@ -280,12 +280,12 @@ By using an `unsigned int` or `unsigned long long`, one can get a hashmap with c
 The bitset can be used too, but its size is fixed.
 
 
-<a id="org3ebafa5"></a>
+<a id="org29cee52"></a>
 
 # trees
 
 
-<a id="org3345ec8"></a>
+<a id="orgd567ca0"></a>
 
 # Dynamic Programming
 

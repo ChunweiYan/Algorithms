@@ -6,12 +6,12 @@ and some terminologies that might be necessary for an interview.
 * binary operations
 The basic binary operations are as follows
 
-| ~<<~    | left shift                 | ~1<<2~ gets 2          |
-| ~>>~    | right shift                | ~4>>2~ gets 1          |
-| ~&~     | bitwise and                | ~0 & 1 = 0~            |
-| ~\vert~ | bitwise or                 |                        |
-| ~\~~    | bitwise complement         | ~unsigned int max=\~0~ |
-| ~^~     | bitwise Exclusive-Or (XOR) | ~10^11=01~             |
+| ~<<~  | left shift                 | ~1<<2~ gets 2         |
+| ~>>~  | right shift                | ~4>>2~ gets 1         |
+| ~&~   | bitwise and                | ~0 & 1 = 0~           |
+| \vert | bitwise or                 |                       |
+| ~~~   | bitwise complement         | ~unsigned int max=~0~ |
+| ~^~   | bitwise Exclusive-Or (XOR) | ~10^11=01~            |
 ** set some bit
 #+BEGIN_SRC C++
   x |= 1 << n;
@@ -41,7 +41,7 @@ Bitset is a c++ container for bits.
 | ~to_ulong~  |                                                     |
 | ~to_ullong~ |                                                     |
 | ~&~         |                                                     |
-| ~\vert~     |                                                     |
+| \vert       |                                                     |
 | ~^~         |                                                     |
 | ~<<~        |                                                     |
 | ~>>~        |                                                     |
