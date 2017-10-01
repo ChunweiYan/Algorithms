@@ -1,0 +1,79 @@
+#+title: Notes
+This post is my notes for preparing a coding interview, 
+including some thoughts about classic problems, 
+and some terminologies that might be necessary for an interview.
+
+* binary operations
+The basic binary operations are as follows
+
+| ~<<~    | left shift                 | ~1<<2~ gets 2          |
+| ~>>~    | right shift                | ~4>>2~ gets 1          |
+| ~&~     | bitwise and                | ~0 & 1 = 0~            |
+| ~\vert~ | bitwise or                 |                        |
+| ~\~~    | bitwise complement         | ~unsigned int max=\~0~ |
+| ~^~     | bitwise Exclusive-Or (XOR) | ~10^11=01~             |
+** set some bit
+#+BEGIN_SRC C++
+  x |= 1 << n;
+#+END_SRC
+** reset some bit
+#+BEGIN_SRC C++
+  x &= (~0 ^ (1<<n))
+#+END_SRC
+** check some bit
+#+BEGIN_SRC C++
+  x & (1<<n)
+#+END_SRC
+
+** bitset
+Bitset is a c++ container for bits.
+*** operators
+| ~test~      | access the specific bit                             |
+| ~all~       | check if all bits are set to ~true~                 |
+| ~any~       |                                                     |
+| ~none~      |                                                     |
+| ~count~     | returns the number of bits set to ~true~            |
+| ~size~      | return the size number of bits that bitset can hold |
+| ~set~       | sets bits to ~true~ or gien value                   |
+| ~reset~     | sets bits to ~false~                                |
+| ~flip~      | toggles the values of bits                          |
+| ~to_string~ | returns a string representation of the data         |
+| ~to_ulong~  |                                                     |
+| ~to_ullong~ |                                                     |
+| ~&~         |                                                     |
+| ~\vert~     |                                                     |
+| ~^~         |                                                     |
+| ~<<~        |                                                     |
+| ~>>~        |                                                     |
+
+#+BEGIN_SRC C++ :includes <iostream> <bitset> :flags -std=c++11 :namespaces std
+  using namespace std;
+
+  bitset<16> bits;
+  bits.set(1);
+  bits.set(3);
+  bits.set(5);
+
+  cout << bits.to_string() << endl;
+  cout << "~ " << bits.flip().to_string() << endl;
+#+END_SRC
+
+#+RESULTS:
+| 101010 |                  |
+|      ~ | 1111111111010101 |
+** storeage of negative numbers
+A positive number is representated as itself while a negative number 
+is representated as the two's complement of its absolute value.
+
+In other words, the binary representation of -K as a N-bit number is concat(1, 2^(N-1)-K).
+** classicial problems
+*** XOR
+- Single Number
+- Single Number II
+- Single Number III
+*** bits as tiny hashmap (which has less than 32 or 64 entries)
+By using an ~unsigned int~ or ~unsigned long long~, one can get a hashmap with constant memroy.
+
+The bitset can be used too, but its size is fixed.
+* trees
+* Dynamic Programming
