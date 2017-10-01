@@ -69,8 +69,16 @@ In other words, the binary representation of -K as a N-bit number is concat(1, 2
 ** classicial problems
 *** XOR
 - Single Number
+  - Given an array of integers, every element appears twice except one.
 - Single Number II
+  - Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
 - Single Number III
+  - Given an array of numbers ~nums~, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
+  
+**Some general ideas**
+
+- the XOR(exclusive-or) operation on two same numbers will be zero.
+- counters on integers' bits have ~O(1)~ storage complexity, while the ones on integers will get `O(n)~.
 *** bits as tiny hashmap (which has less than 32 or 64 entries)
 By using an ~unsigned int~ or ~unsigned long long~, one can get a hashmap with constant memroy.
 
