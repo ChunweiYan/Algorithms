@@ -65,7 +65,10 @@ Bitset is a c++ container for bits.
 A positive number is representated as itself while a negative number 
 is representated as the two's complement of its absolute value.
 
-In other words, the binary representation of -K as a N-bit number is concat(1, 2^(N-1)-K).
+In other words, the binary representation of -K as a N-bit number is concat(1, 2^(N-1)-K). 
+The absolute value should be ~~abs + 1~, for example, the ~-3~ with 4 bits will be expressed as ~1101~.
+
+To plus one positive number plus one negative number simply plus each bit of the numbers.
 ** classicial problems
 *** XOR
 - Single Number
@@ -79,9 +82,22 @@ In other words, the binary representation of -K as a N-bit number is concat(1, 2
 
 - the XOR(exclusive-or) operation on two same numbers will be zero.
 - counters on integers' bits have ~O(1)~ storage complexity, while the ones on integers will get `O(n)~.
+  
 *** bits as tiny hashmap (which has less than 32 or 64 entries)
 By using an ~unsigned int~ or ~unsigned long long~, one can get a hashmap with constant memroy.
 
 The bitset can be used too, but its size is fixed.
 * trees
+** top to bottom or bottom to top
 * Dynamic Programming
+** classical problems
+*** boundary related sum or product
+- product of array except self
+*** states based on previous
+* Careful problems
+- [LRU Cache](https://leetcode.com/problems/lru-cache/description/)
+  - Least Recent Used, out
+    - If get/set, put it to the head
+    - much linked-list operations, should be quite careful
+  - there are a number of Cache replacement policies
+  - FIFO
