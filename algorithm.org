@@ -2,6 +2,45 @@
 This post is my notes for preparing a coding interview, 
 including some thoughts about classic problems, 
 and some terminologies that might be necessary for an interview.
+* sort
+** heap
+**Heap is a good choice if just want the top K elements and do not want to sort**
+*** some STL support
+- ~make_heap~ to build a heap
+- ~push_heap~ to add a new element
+- ~pop_heap~ to remove the first element, will sort the next element automatically
+
+
+#+BEGIN_SRC C++ :flags -std=c++11 :includes <algorithm> <iostream> <vector> :namespaces std
+  using namespace std;
+
+  vector<int> arr({4, 3, 5, 8, 1, 3, 2});
+  make_heap(arr.begin(), arr.end());
+
+  cout << "after build" << endl;
+  for (auto i : arr) {
+    cout << i << " ";
+  }
+  cout << endl;
+
+  int nnums = arr.size();
+  for (int i = 0; i < nnums; i++) {
+    pop_heap(arr.begin(), arr.end());
+    cout << "the 1-th is " << arr.back() << endl;
+    arr.pop_back();
+  }
+#+END_SRC
+
+#+RESULTS:
+| after | build |    |   |   |   |   |
+| 8     | 4     | 5  | 3 | 1 | 3 | 2 |
+| the   | 1-th  | is | 8 |   |   |   |
+| the   | 1-th  | is | 5 |   |   |   |
+| the   | 1-th  | is | 4 |   |   |   |
+| the   | 1-th  | is | 3 |   |   |   |
+| the   | 1-th  | is | 3 |   |   |   |
+| the   | 1-th  | is | 2 |   |   |   |
+| the   | 1-th  | is | 1 |   |   |   |
 
 * binary operations
 The basic binary operations are as follows
@@ -66,7 +105,7 @@ A positive number is representated as itself while a negative number
 is representated as the two's complement of its absolute value.
 
 In other words, the binary representation of -K as a N-bit number is concat(1, 2^(N-1)-K). 
-The absolute value should be ~~abs + 1~, for example, the ~-3~ with 4 bits will be expressed as ~1101~.
+The absolute value should be ~~abs + 1~ , for example, the ~-3~ with 4 bits will be expressed as ~1101~.
 
 To plus one positive number plus one negative number simply plus each bit of the numbers.
 ** classicial problems
@@ -87,6 +126,7 @@ To plus one positive number plus one negative number simply plus each bit of the
 By using an ~unsigned int~ or ~unsigned long long~, one can get a hashmap with constant memroy.
 
 The bitset can be used too, but its size is fixed.
+* Linked list
 * trees
 ** top to bottom or bottom to top
 * Dynamic Programming
@@ -101,3 +141,5 @@ The bitset can be used too, but its size is fixed.
     - much linked-list operations, should be quite careful
   - there are a number of Cache replacement policies
   - FIFO
+* Terminologies
+in-order traversal
