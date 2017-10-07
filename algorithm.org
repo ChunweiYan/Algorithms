@@ -6,7 +6,7 @@ and some terminologies that might be necessary for an interview.
 ** heap
 **Heap is a good choice if just want the top K elements and do not want to sort**
 *** some STL support
-- ~make_heap~ to build a heap
+- ~make_heap~ to build a **max* heap using ~operator<~
 - ~push_heap~ to add a new element
 - ~pop_heap~ to remove the first element, will sort the next element automatically
 
@@ -126,14 +126,26 @@ To plus one positive number plus one negative number simply plus each bit of the
 By using an ~unsigned int~ or ~unsigned long long~, one can get a hashmap with constant memroy.
 
 The bitset can be used too, but its size is fixed.
+
+*** bit as group
+https://leetcode.com/problems/total-hamming-distance/discuss/
 * Linked list
 * trees
 ** top to bottom or bottom to top
+** TODO
+- https://leetcode.com/problemset/algorithms/?difficulty=Medium
 * Dynamic Programming
+** find the maximum or longest
+if the recursive branchs' result conflits with each other, 
+the recursive function should return a complete result and the caller frame should compare them.
+
+https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/
 ** classical problems
 *** boundary related sum or product
 - product of array except self
 *** states based on previous
+*** maximum
+- https://leetcode.com/problems/maximum-length-of-pair-chain/description/
 * Careful problems
 - [LRU Cache](https://leetcode.com/problems/lru-cache/description/)
   - Least Recent Used, out
@@ -143,3 +155,9 @@ The bitset can be used too, but its size is fixed.
   - FIFO
 * Terminologies
 in-order traversal
+* Randoms
+<stdlib.h>
+<time.h>
+srand(time(0));
+rand() 
+RAND_MAX
