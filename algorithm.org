@@ -122,16 +122,21 @@ To plus one positive number plus one negative number simply plus each bit of the
 - the XOR(exclusive-or) operation on two same numbers will be zero.
 - counters on integers' bits have ~O(1)~ storage complexity, while the ones on integers will get `O(n)~.
   
-*** bits as tiny hashmap (which has less than 32 or 64 entries)
-By using an ~unsigned int~ or ~unsigned long long~, one can get a hashmap with constant memroy.
+*** bits as tiny set (which has less than 32 or 64 entries)
+If a key that has less than 64 keys is needed, an `long long` or `int` can be used.
+By using an ~unsigned int~ or ~unsigned long long~, one can get a set with constant memroy.
 
-The bitset can be used too, but its size is fixed.
-
+The bitset can be used too, and the number ob bits can be more than 32, but its size is fixed.
 *** bit as group
 https://leetcode.com/problems/total-hamming-distance/discuss/
 * Linked list
 * trees
 ** top to bottom or bottom to top
+If we want to traverse a tree, from top to bottom is ok; if to generate multiple trees, 
+from bottom to top should be easier, use a vector to store subtrees.
+
+[Unique Binary Search TreeII](https://leetcode.com/problems/unique-binary-search-trees-ii/description/)
+
 ** TODO
 - https://leetcode.com/problemset/algorithms/?difficulty=Medium
 * Dynamic Programming
