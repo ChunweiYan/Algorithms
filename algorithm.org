@@ -2,6 +2,7 @@
 This post is my notes for preparing a coding interview, 
 including some thoughts about classic problems, 
 and some terminologies that might be necessary for an interview.
+* types
 * sort
 ** heap
 **Heap is a good choice if just want the top K elements and do not want to sort**
