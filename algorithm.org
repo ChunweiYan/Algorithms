@@ -41,7 +41,9 @@ and some terminologies that might be necessary for an interview.
 | the   | 1-th  | is | 3 |   |   |   |
 | the   | 1-th  | is | 2 |   |   |   |
 | the   | 1-th  | is | 1 |   |   |   |
-
+* Array and sequence
+** production or sum of subarray
+- [max product subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
 * binary operations
 The basic binary operations are as follows
 
@@ -134,6 +136,20 @@ The bitset can be used too, but its size is fixed.
 *** boundary related sum or product
 - product of array except self
 *** states based on previous
+* math
+** Reservoir Sampling
+*** choose k samples
+- the number of items is unknown.
+
+- 1/k probability to select current item
+- 1-1/k probability to drop current item
+*** choose 1 sample
+- 1/2 to select current item
+*** distributed reservoir sampling
+- split the original input to multiple parts
+- remember each part size
+- do reservoir sampling parally in multiple machines
+- **merge the final samples with sampling weight of 1/size**
 * Careful problems
 - [LRU Cache](https://leetcode.com/problems/lru-cache/description/)
   - Least Recent Used, out
