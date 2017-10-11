@@ -162,12 +162,24 @@ https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description
 - 1/k probability to select current item
 - 1-1/k probability to drop current item
 *** choose 1 sample
-- 1/2 to select current item
+- count the items.
+- sample the current item with probability 1/count
+- ~rand() % count == count-1~
+- https://leetcode.com/problems/linked-list-random-node/description/
 *** distributed reservoir sampling
 - split the original input to multiple parts
 - remember each part size
 - do reservoir sampling parally in multiple machines
 - **merge the final samples with sampling weight of 1/size**
+** greast common divisor (GCD)
+#+BEGIN_SRC python
+  def gcd(a, b):
+      while b != 0:
+          t = b
+          b = a % b
+          a = t
+      return a
+#+END_SRC
 * Careful problems
 - [LRU Cache](https://leetcode.com/problems/lru-cache/description/)
   - Least Recent Used, out
