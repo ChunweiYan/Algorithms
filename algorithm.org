@@ -2,14 +2,59 @@
 This post is my notes for preparing a coding interview, 
 including some thoughts about classic problems, 
 and some terminologies that might be necessary for an interview.
+* STL
+** priority_queue
+- priority_queue<T, Container_t, CMP_t>
+
+  #+BEGIN_SRC C++
+    auto cmp = [](int a, int b) {return a < b;};
+    priority_queue<int, vector<int>, decltype(cmp)> queue(cmp);
+    queue.push(xxx)
+    queue.pop()
+    queue.top()
+  #+END_SRC
+** bitset
+bitset<N>
+- test
+- set
+- reset
+- to_string
+- to_ulong
+** deque
+- pop_front()
+- pop_back
+- push_front
+- push_back
+- erase
+** heap
+- make_heap
+- push_heap
+- pop_heap
+** nth_element
+- operator<
+- the left part between mid_it are less than *mid_it
+- nth_element(begin_it, mid_it, end_it, cmp)
+- O(n) time, O(NlogN) swap
 * skills
+** analysis the basic solution first, if necessary to improve, try better one
+https://leetcode.com/problems/maximum-average-subarray-i/description/
 ** use special marks to avoid duplicate searching
 for example, breadth-first search in a matrix, to avoid repeatly searhcing the same element,
 
 1. replace the element with a special token such as `#`
 2. recursive search the next step
 3. restore the element
-
+** unique combination use a `used` status to avoid duplication
+There are some duplicate keys, sort and make them adjacement, and make sure the
+same characters ares used in order(similar to concurrency safty conditions to avoid deadlock).
+** reduce nested barskets
+Just indicate whehter the chars should be bold, and the rest is straightforward.
+https://leetcode.com/problems/add-bold-tag-in-string/description/
+** n^2 time -> O(n), 32bits
+https://leetcode.com/problems/total-hamming-distance/description/
+** delete an element from array in O(1)
+- replace this element with the last element
+- delete the last element
 * tree traversal
 - [Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/description/)
 - [Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/description/)
@@ -96,6 +141,8 @@ set `end<begin`, it is simple to check whether this is the initialization.
 * search
 ** search in ordered
 - [search a 2D matrixII](https://leetcode.com/problems/search-a-2d-matrix-ii/description/)
+* heap and priority_queue
+https://leetcode.com/problems/find-median-from-data-stream/description/
 * Array and sequence
 ** parse complex format
 ~stream~ can help to parse some formats, for example, read a fraction
@@ -112,11 +159,39 @@ set `end<begin`, it is simple to check whether this is the initialization.
 #+END_SRC
 ** TODO scanf and cin to split string.
 https://leetcode.com/problems/fraction-addition-and-subtraction/description/
+#+BEGIN_SRC C++
+  char _;
+  int numerator;
+  int denominator;
+  // to read a fraction like -2/3
+  ss >> numerator >> _ >> denominator;
+#+END_SRC
 
+read a comma seperated string
+
+#+BEGIN_SRC C++
+  string str = "1,2,3,4";
+  stringstream ss(str);
+
+  int i;
+  vector<int> nums;
+
+  while (ss >> i) {
+    nums.push_back(i);
+    if (ss.peek() == ',') {
+      ss.ignore();
+    }
+  }
+#+END_SRC
 ** production or sum of subarray
 - [max product subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
 ** TODO binary search and get min/max than this num
 ** ~nth_element~ in O(n)
+- time complexity: O(n)
+- O(NlogN) swaps
+- compare by operator<
+- the n-1 elements are less than nth element
+
 ** find peak
 the core idea is to find the local maximum.
 
@@ -223,9 +298,15 @@ from bottom to top should be easier, use a vector to store subtrees.
 ** TODO
 - https://leetcode.com/problemset/algorithms/?difficulty=Medium
 * BFS and DFS
+- use BFS to find the shortest path to an destination
+- use DFS to solve a maze.
 - find the path to a destination
 - [word ladder](https://leetcode.com/problems/word-ladder/description/)
+  - BFS should remove the record before push to the queue.
 - [word search](https://leetcode.com/problems/word-search/discuss/)
+- [word searchII](https://leetcode.com/problems/word-search-ii/description/)
+  - DFS easy to avoid duplicate searching
+  - basic TireTree to pass node* and effective searching.
 * Dynamic Programming
 ** find the maximum or longest
 if the recursive branchs' result conflits with each other, 
@@ -233,11 +314,19 @@ the recursive function should return a complete result and the caller frame shou
 
 https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/
 ** classical problems
+*** bag
+- [Partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/description/)
+  - save time and space
 *** boundary related sum or product
 - product of array except self
 *** states based on previous
 *** maximum
 - https://leetcode.com/problems/maximum-length-of-pair-chain/description/
+*** partition
+https://leetcode.com/problems/target-sum/description/
+*** coin change
+https://leetcode.com/problems/coin-change/description/
+dp[i][sum] = min(dp[i][sum-coins[i]]+1, dp[i-1][sum])
 * math
 ** check element adjacement in a matrix
 #+BEGIN_SRC C++
@@ -305,7 +394,6 @@ Floyd's cycle-finding algorithm is a pointer algorithm that uses only two pointe
   }
 #+END_SRC
 
-
 * Careful problems
 - [LRU Cache](https://leetcode.com/problems/lru-cache/description/)
   - Least Recent Used, out
@@ -321,3 +409,67 @@ in-order traversal
 srand(time(0));
 rand() 
 RAND_MAX
+* plan
+** algorithm
+*** array
+- [ ] [best time to buy and sell stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/) HARD
+- [X] [Insert Delete GetRandom O(1) - Duplicates allowed](https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/description/) HARD
+  - the skill to delete one element in a list with O(1) time.
+- [ ] [Maximum Average SubarrayII](https://leetcode.com/problems/maximum-average-subarray-ii/description/) HARD
+*** DP
+- [ ] [guess number higher or lower](https://leetcode.com/problems/guess-number-higher-or-lower-ii/description/) MID
+- [ ] [best time to buy and sell stock with transaction fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/) MID
+- [ ] [Unique Substrings in Wraparound String](https://leetcode.com/problems/unique-substrings-in-wraparound-string/description/) MID
+*** string
+- [X] https://leetcode.com/problems/split-concatenated-strings/description/ MID
+  - the different cases
+  - understanding of the details according to cases
+  - when implementing the details, understand by the real cases or imagine the real case first.
+- [ ] https://leetcode.com/problems/longest-valid-parentheses/description/ HARD
+- [ ] https://leetcode.com/problems/word-abbreviation/description/ HARD
+*** math
+- [ ] https://leetcode.com/problems/maximum-swap/description/ MID
+- [ ] https://leetcode.com/problems/bulb-switcher-ii/description/ MID
+- [ ] https://leetcode.com/problems/reconstruct-original-digits-from-english/description/ MID
+*** tree
+- [ ] https://leetcode.com/problems/largest-bst-subtree/description/ MID
+- [ ] https://leetcode.com/problems/recover-binary-search-tree/description/ HARD
+- [ ] https://leetcode.com/problems/house-robber-iii/description/ MID
+*** hash map
+- [ ] https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/ MID
+- [ ] https://leetcode.com/problems/valid-sudoku/description/ HARD
+- [ ] https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/ HARD
+** ML
+*** basics
+- [ ] Basic Concepts
+  - [ ] bias-variance
+  - [ ] bayes theorem
+  - [ ] bagging
+  - [ ] boosting
+  - [ ] collaborative filtering
+  - [ ] dimension reduction
+  - [ ] L1, L2 regualization
+- [ ] logistic regression
+- [ ] NMT
+- [ ] k-means
+- [ ] LTR
+- [ ] CTR
+- [ ] wide and deep
+*** machine learning system design
+- [ ] a graph of algorithm to use
+- [ ] different kind of task, and reason about the choice
+  - supervised
+  - unsupervised
+  - classification
+  - regression
+  - generalized linear model
+  - decision tree
+  - neural network
+- [ ] metrics
+- [ ] **how to optimize the model for production**
+** system && architecture
+- [ ] take note of the concepts
+- [ ] the basic cs concepts
+  - [ ] LRU
+  - [ ] FIFO
+- [ ] project adam
