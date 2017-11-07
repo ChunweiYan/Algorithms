@@ -1,0 +1,46 @@
+* twitter design
+** notify model
+*** push model
+* GFS
+** Same structure of a basic file system
+- MetaInfo
+  - Name
+  - CreatedTime
+  - Size
+  - Indice
+    - chunk0 -> disk offset
+    - chunk1 -> disk offset
+    - ...
+- Chunks Storage
+  - chunk0
+  - chunk1
+** Distributed File System for Big Data
+- bigger chunck size 64MB
+  - advantages:
+    - smaller meta data, better for better network transmission
+  - disadvantages
+    - may waste storeage with small files
+- one chunk with multiple blocks
+  - one block, 64k
+  - each block has a 32-bit checksum, to check file is broken
+- three replica for data recovery
+  - if a ChunckServer's data is broken, request Master to find other replicas
+  - choose the server with low disk usage to store replica.
+  - store two in a data center, the third one in another data center
+  - one primary, two replica
+- heat beat to detect ChunckServer's failure
+** Reading
+1. Client request Master and get the address of primary ChunkServer
+2. request primary ChunkServer, and get the chunk
+** Writing
+1. Client request Master
+2. Master send the addresses of primary and two replicas
+3. write to the nearest server first, sequentially copy between servers
+4. write to memory first to reduce disk operation frequency.
+5. when all the ChunckServers ready, send the instruction to write to disk.
+6. if any stage failed, the client just repeat.
+
+
+
+
+
