@@ -35,6 +35,7 @@ bitset<N>
 - the left part between mid_it are less than *mid_it
 - nth_element(begin_it, mid_it, end_it, cmp)
 - O(n) time, O(NlogN) swap
+** TODO stringstream
 * skills
 ** analysis the basic solution first, if necessary to improve, try better one
 https://leetcode.com/problems/maximum-average-subarray-i/description/
@@ -144,6 +145,8 @@ set `end<begin`, it is simple to check whether this is the initialization.
 * heap and priority_queue
 https://leetcode.com/problems/find-median-from-data-stream/description/
 * Array and sequence
+- https://leetcode.com/problems/reverse-words-in-a-string-ii/description/
+  - should make sure that the start is the begin of a word
 ** parse complex format
 ~stream~ can help to parse some formats, for example, read a fraction
 
@@ -307,6 +310,10 @@ from bottom to top should be easier, use a vector to store subtrees.
 - [word searchII](https://leetcode.com/problems/word-search-ii/description/)
   - DFS easy to avoid duplicate searching
   - basic TireTree to pass node* and effective searching.
+** DFS
+- traverse all the next positions, prune if needed
+- do not constrained to a table, if no path is needed
+https://leetcode.com/problems/android-unlock-patterns/description/
 * Dynamic Programming
 ** find the maximum or longest
 if the recursive branchs' result conflits with each other, 
