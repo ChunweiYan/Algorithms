@@ -36,7 +36,65 @@ bitset<N>
 - nth_element(begin_it, mid_it, end_it, cmp)
 - O(n) time, O(NlogN) swap
 ** TODO stringstream
+** lower_bound, upper_bound, equal_range
+the list should be in ascending order
+
+support customized compare which is similar to operator<
+#+BEGIN_SRC C++ :flags -std=c++11 :main no
+  #include <algorithm>
+  #include <iostream>
+  #include <vector>
+  using namespace std;
+
+  int main() {
+    vector<int> arr({0, 1, 2, 3, 4, 5, 5, 6, 7, 10});
+    // start, end, value
+    auto lower = lower_bound(arr.begin(), arr.end(), 4);
+    auto higher = upper_bound(arr.begin(), arr.end(), 4);
+    auto equal = equal_range(arr.begin(), arr.end(), 5);
+
+    cout << "lower\t" << *lower << endl;
+    cout << "higher\t" << *higher << endl;
+    cout << "equal size\t" << equal.second - equal.first << endl;
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| lower      | 4 |
+| higher     | 5 |
+| equal size | 2 |
+** hash
+return size_t
+#+BEGIN_SRC C++ :main no :flags -std=c++11
+  #include <iostream>
+  #include <functional>
+  using namespace std;
+
+  int main() {
+    auto key = std::hash<std::string>()("hello world");
+    cout << "hash: " << key << endl;
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+: hash: 12386028635079221413
+
+* Good questions
+- https://leetcode.com/problems/android-unlock-patterns/description/
+  - DFS
+- https://leetcode.com/problems/sequence-reconstruction/description/
+  - Topological sorting
+- https://leetcode.com/problems/longest-consecutive-sequence/description/
+  - greedy or union find
+- [meeting room](https://leetcode.com/problems/meeting-rooms/discuss/)
+  - greedy, but a good introduction to  meeting room problems
+- [Best Meeting Point](https://leetcode.com/problems/best-meeting-point/description/)
+  - median
 * skills
+** container needs initialization
 ** analysis the basic solution first, if necessary to improve, try better one
 https://leetcode.com/problems/maximum-average-subarray-i/description/
 ** use special marks to avoid duplicate searching
@@ -314,6 +372,27 @@ from bottom to top should be easier, use a vector to store subtrees.
 - traverse all the next positions, prune if needed
 - do not constrained to a table, if no path is needed
 https://leetcode.com/problems/android-unlock-patterns/description/
+* Topological sorting
+https://en.wikipedia.org/wiki/Topological_sorting
+
+#+BEGIN_SRC sh
+  L ← Empty list that will contain the sorted elements
+  S ← Set of all nodes with no incoming edge
+  while S is non-empty do
+        remove a node n from S
+        add n to tail of L
+        for each node m with an edge e from n to m do
+            remove edge e from the graph
+            if m has no other incoming edges then
+               insert m into S
+  if graph has edges then
+      return error (graph has at least one cycle)
+  else
+      return L (a topologically sorted order)
+#+END_SRC
+
+https://leetcode.com/problems/sequence-reconstruction/description/
+
 * Dynamic Programming
 ** find the maximum or longest
 if the recursive branchs' result conflits with each other, 
@@ -321,6 +400,171 @@ the recursive function should return a complete result and the caller frame shou
 
 https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/
 ** classical problems
+*** loggest increasing subsequences
+#+BEGIN_SRC C++ :flags -std=c++11 :main no
+  #include <iostream>
+  #include <vector>
+  using namespace std;
+
+  int longestSubseq(const vector<int>& A) {
+    // store the maximum
+    int res = A.empty() ? 0 : 1;
+    vector<int> length(A.size(), 1);
+    for (int i = 1; i < A.size(); i++) {
+      for (int j = 0; j < i; j++) {
+        if (A[j] < A[i]) {
+          length[i] = max(length[i], length[j]+1);
+          res = max(length[i], res);
+        }
+      }
+    }
+    return res;
+  }
+
+  int main() {
+    vector<int> A({2,0,1,3,5,2});
+    cout << longestSubseq(A) << endl;
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+*** shortest paths in DAG
+min(
+#+BEGIN_SRC C++ :flags -std=c++11 :main no
+  #include <iostream>
+  #include <vector>
+  #include <set>
+  #include <deque>
+  using namespace std;
+
+
+  int ShortestPath(int testcase) {
+      // construct graph
+      vector<set<int>> edges(testcase+1);
+      vector<int> incomes(testcase+1, 0);
+      for (int i = 1; i <= testcase; i++) {
+          for (int j = i+1; j <= testcase; j++) {
+              if (j == i+1 || j == 3 * i) {
+                  edges[i].insert(j);
+                  incomes[j] ++;
+              }
+          }
+      }
+
+      // topological order traverse
+      deque<int> tovisit({1});
+      vector<int> dist(testcase+1, numeric_limits<int>::max());
+      dist[1] = 0;
+      while (!tovisit.empty()) {
+          for (auto s : tovisit) {
+              for (auto t : edges[s]) {
+                  dist[t] = min(dist[t], dist[s]+1);
+                  if (--incomes[t] == 0) {
+                      tovisit.push_back(t);
+                  }
+              }
+              tovisit.pop_front();
+          }
+      }
+      return dist[testcase];
+  }
+
+  int main() {
+    //code
+    cout << ShortestPath(11) << endl;
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+*** Knapsack
+**** Knapsack with repeating
+#+BEGIN_SRC C++ :flags -std=c++11 :main no :includes <iostream> <vector>
+  using namespace std;
+
+  int maxValue(int W, vector<int>& values, vector<int>& weights) {
+    int result = 0;
+    // with weight
+    vector<int> dp(values.size()+1, 0);
+
+    for (int weight = 0; weight <= W; weight++) {
+      // traverse all the goods
+      for (int i = 0; i < values.size(); i++) {
+        if (weight - weights[i] >= 0) {
+          int w = weights[i];
+          int v = values[i];
+          dp[weight] = max(dp[weight-w]+v, dp[weight]);
+          result = max(result, dp[weight]);
+          cout << "dp " << weight << " : " << dp[weight] << endl;
+        }
+      }
+    }
+    return result;
+  }
+
+  int main() {
+    vector<int> weights ({3,2,5,1,2,7});
+    vector<int> values({2,1,4,6,3,2});
+    cout << maxValue(10, weights, values) << endl;
+
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+**** Knapsack without repeating
+*** edit distance
+#+BEGIN_SRC C++ :main no :flags -std=c++11
+  #include <iostream>
+  #include <vector>
+  #include <map>
+  using namespace std;
+
+  class Solution {
+  public:
+      int minDistance(string word1, string word2) {
+        cout << "in function" << endl;
+        vector<vector<int>> dp(word1.size()+1);
+        for (int i = 0; i < word2.size(); i++) {
+          dp.push_back(vector<int>(word2.size(), 0));
+        }
+
+        for (int i = 1; i <= word1.size(); i++) {
+          dp[i][0] = i;
+        }
+        for (int i = 1; i <= word2.size(); i++) {
+          dp[0][i] = i;
+        }
+
+        for (int i = 1; i <= word1.size(); i++) {
+          for (int j = 1; j <= word2.size(); j++) {
+            if (word1[i] == word2[j]) {
+              dp[i][j] = dp[i-1][j-1];
+            } else {
+              dp[i][j] = min(dp[i-1][j-1]+1, dp[i][j-1]+1);
+              dp[i][j] = min(dp[i][j], dp[i-1][j]+1);
+            }
+          }
+        }
+        return dp[word1.size()][word2.size()];
+      }
+  };
+
+  int main() {
+    Solution sol;
+    cout << sol.minDistance("h", "hyy") << endl;
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+
 *** bag
 - [Partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/description/)
   - save time and space
@@ -416,6 +660,7 @@ in-order traversal
 srand(time(0));
 rand() 
 RAND_MAX
+* bloom filter
 * plan
 ** algorithm
 *** array
